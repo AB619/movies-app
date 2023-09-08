@@ -5,3 +5,19 @@
 .flex {
     display: flex;
 }
+
+.card {
+    padding: 10px;
+    transition: transform 350ms ease-in;
+}
+
+.card:hover {
+    z-index: 1111;
+    transform: scale(1.1);
+}
+
+.cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
