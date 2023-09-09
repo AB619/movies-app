@@ -1,5 +1,5 @@
 .container {
-    margin: 20px 50px;
+    margin: 15px 50px;
 }
 
 .flex {
@@ -7,17 +7,23 @@
 }
 
 .card {
-    padding: 10px;
-    transition: transform 350ms ease-in;
+    transition: transform 10ms ease-in;
+    padding: 5px;
 }
 
 .card:hover {
     z-index: 1111;
-    transform: scale(1.1);
+    transform: scale(1.01);
 }
 
 .cards {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.pagination {
+    display: flex;
+    justify-content:flex-end;
+    padding-right: 40px;
 }
