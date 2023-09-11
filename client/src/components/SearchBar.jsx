@@ -1,16 +1,17 @@
-import { Input, Button } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Input } from 'antd';
 
-const SearchBar = () => {
-
-    const onChange = (e) => {
-        console.log(e);
-    };
+const SearchBar = ({onSearch}) => {
+    const {Search} = Input;
 
     return (
         <div className="container flex">
-            <Input placeholder="Type here and click button to Search" allowClear onChange={onChange} />
-            <Button type="primary" icon={<SearchOutlined />}>Search</Button>
+            <Search
+                placeholder="Type here and click button to Search"
+                allowClear
+                enterButton="Search"
+                size="large"
+                onSearch={(value) => onSearch(value)}
+            />
         </div>
     )
 };

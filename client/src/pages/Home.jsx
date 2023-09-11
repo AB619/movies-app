@@ -7,20 +7,26 @@ import { Pagination } from "antd";
 const Home = () => {
     const [details, setDetails] = useState();
     const [selectedPage, setSelectedPage] = useState(1);
+    const [searchTerm, setSearchTerm] = useState();
 
     useEffect(() => {
-        setDetails(MOVIES_SERIES_DETAILS.filter((_,i) => i >= ((selectedPage - 1) * 8) && i < (selectedPage * 8)));
-    }, [selectedPage]);
+        if (searchTerm) {
+            setDetails(MOVIES_SERIES_DETAILS.filter(ele => ele.title.toLowerCase().includes(searchTerm.toLowerCase())).filter((_, i) => i >= ((selectedPage - 1) * 8) && i < (selectedPage * 8)));
+        }
+        else {
+            setDetails(MOVIES_SERIES_DETAILS.filter((_, i) => i >= ((selectedPage - 1) * 8) && i < (selectedPage * 8)));
+        }
+    }, [searchTerm, selectedPage]);
 
     const changeHandler = (page) => {
         setSelectedPage(page);
     }
-    
+
     return (
-        <>            
-            <SearchBar />
+        <>
+            <SearchBar onSearch={(term) => setSearchTerm(term)} />
             <Grid details={details} />
-            <Pagination className="pagination" defaultPageSize={8} defaultCurrent={1} total={MOVIES_SERIES_DETAILS?.length} onChange={changeHandler}/>
+            <Pagination className="pagination" defaultPageSize={8} defaultCurrent={1} total={MOVIES_SERIES_DETAILS?.length} onChange={changeHandler} />
         </>
     )
 };
