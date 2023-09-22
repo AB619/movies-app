@@ -1,38 +1,39 @@
 import SearchBar from "../components/SearchBar";
 import Grid from "../components/Grid";
-import { MOVIES_SERIES_DETAILS } from "../test-data/MOVIES_SERIES_DETAILS";
+import NotFound from "../components/NotFound";
 import { useEffect, useState } from 'react';
 import { Pagination } from "antd";
 
 const Movies = () => {
-    const [details, setDetails] = useState();
-    const [moviesDetails, setMoviesDetails] = useState();
-    const [selectedPage, setSelectedPage] = useState(1);
-    const [searchTerm, setSearchTerm] = useState();
+    const [details, setDetails] = useState(null);
+    const [selectedPage, setSelectedPage] = useState(0);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [error , setError] = useState(false);
 
     useEffect(() => {
-        setDetails(MOVIES_SERIES_DETAILS.filter(ele => ele.type === "movie"));
-    }, []);
-
-    useEffect(() => {
-        if (searchTerm) {
-            setMoviesDetails(MOVIES_SERIES_DETAILS.filter(ele => ele.title.toLowerCase().includes(searchTerm.toLowerCase())).filter((_, i) => i >= ((selectedPage - 1) * 8) && i < (selectedPage * 8)));
-        }
-        else {
-            setMoviesDetails(details?.filter((_, i) => i >= ((selectedPage - 1) * 8) && i < (selectedPage * 8)));
-        }
-    }, [searchTerm, details, selectedPage])
+        fetch(`${process.env.REACT_APP_API_URL}/movie/list?search=${searchTerm}&page=${selectedPage}&limit=8`)
+        .then(res => res.json())
+        .then(data => setDetails(data.data))
+        .catch(() => setError(true))
+    }, [searchTerm, selectedPage]);
 
     const changeHandler = (page) => {
-        setSelectedPage(page);
+        setSelectedPage(page-1);
     }
     
     return (
-        <>
-            <SearchBar onSearch={(term) => setSearchTerm(term)} />
-            <Grid details={moviesDetails} />
-            <Pagination className="pagination" defaultPageSize={8} defaultCurrent={1} total={details?.length} onChange={changeHandler} />
-        </>
+          <>
+            {error ? <NotFound /> :
+            <>
+            <SearchBar onSearch={(term) => {
+                setSearchTerm(term)
+                setSelectedPage(0)
+            }} />
+            <Grid details={details?.list} />
+            <Pagination className="pagination" defaultPageSize={8} defaultCurrent={1} total={details?.count} onChange={changeHandler} />
+            </>
+            }
+            </>
     )
 };
 

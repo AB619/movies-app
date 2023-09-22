@@ -1,15 +1,15 @@
 import { Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
 import Series from './pages/Series';
 import Movies from './pages/Movies';
 import NotFound from './components/NotFound';
+import NewCard from './pages/NewCard';
 
 const Router = () => {
     return (
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route exact path="/" element={<Movies />} />
           <Route exact path="/series" element={<Series />} />
-          <Route exact path="/movies" element={<Movies />} />
+          <Route exact path="/config" element={<NewCard />} />
           <Route path="*" element={<NotFound/>} />
         </Routes>
     )

@@ -3,7 +3,7 @@ import paginate from 'mongoose-paginate';
 
 const schema = new mongoose.Schema({
   id: {
-    type: Number,
+    type: String,
     required: true,
   },
   title: {
@@ -32,5 +32,3 @@ schema.plugin(paginate);
 const Movie = mongoose.model('Movie', schema)
 
 export {Movie};
-
-//module.exports = mongoose.model('Movie', schema);

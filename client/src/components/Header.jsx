@@ -3,27 +3,27 @@ import { Link } from 'react-router-dom';
 import { Menu } from 'antd';
 
 const Header = () => {
-  const [current, setCurrent] = useState('/imdb');
+  const [current, setCurrent] = useState('/movies');
 
   const [path] = useState(window.location.pathname);
 
   useEffect(() => {
-    if (path === "/") setCurrent('/imdb')
+    if (path === "/") setCurrent('/movies')
     else setCurrent(path)
   }, [path])
 
   const items = [
     {
       label: <Link to="/">Movies IMDB</Link>,
-      key: '/imdb',
+      key: '/movies',
     },
     {
       label: <Link to="/series">Web Series</Link>,
       key: '/series',
     },
     {
-      label: <Link to="/movies">Movies</Link>,
-      key: '/movies',
+      label: <Link to="/config">Add New Item</Link>,
+      key: '/config',
     }
   ]
 

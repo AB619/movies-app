@@ -5,7 +5,7 @@ import seriesRoutes from "./modules/series/routes.js";
 const routes = () => {
   const router = Router();
 
-  router.use("/movies", moviesRoutes());
+  router.use("/movie", moviesRoutes());
   router.use("/series", seriesRoutes());
 
   return router;
